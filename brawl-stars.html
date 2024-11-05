@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Stars - Supercell Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header & Nav styles (mantenidos del diseño anterior) */
+        header {
+            background: linear-gradient(to right, #1a1a1a, #333);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #aa4242;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #ab1010;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1a1a1a;
+        }
+
+        /* Game Detail Specific Styles */
+        .game-hero {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1920/400');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .game-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .game-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .game-container {
+            max-width: 1200px;
+            margin: -100px auto 0;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .game-main-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .game-screenshots {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .screenshot {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot img:hover {
+            transform: scale(1.05);
+        }
+
+        .game-info {
+            padding: 2rem;
+        }
+
+        .game-description {
+            margin: 2rem 0;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .features-list {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .features-list h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .features-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: #ab1010;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .download-section {
+            background: linear-gradient(to right, #ab1010, #ab1010);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .download-button {
+            background-color: white;
+            color: #ab1010;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .requirements {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .requirements h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .requirement-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .download-progress {
+            width: 100%;
+            height: 20px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: white;
+            transition: width 3s ease-in-out;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-list ul {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .game-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">Supercell Store</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index.html">Juegos</a></li>
+            <li><a href="ofertas.html">Ofertas</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section class="game-hero">
+        <div class="game-hero-content">
+            <h1>Brawl Stars</h1>
+            <p>¡El juego de batalla multijugador más emocionante de Supercell!</p>
+        </div>
+    </section>
+
+    <div class="game-container">
+        <div class="game-main-content">
+            <div class="game-grid">
+                <div class="game-media">
+                    <img src="clash royale.webp" alt="Brawl Stars Gameplay" style="width: 100%; border-radius: 10px;">
+                    <div class="game-screenshots">
+                        <div class="screenshot">
+                            <img src="clash royale.webp" alt="Screenshot 1">
+                        </div>
+                        <div class="screenshot">
+                            <img src="clash royale.webp" alt="Screenshot 2">
+                        </div>
+                        <div class="screenshot">
+                            <img src="clash royale.webp" alt="Screenshot 3">
+                        </div>
+                        <div class="screenshot">
+                            <img src="clash royale.webp" alt="Screenshot 4">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-info">
+                    <div class="download-section">
+                        <h2>¡Descarga Gratis!</h2>
+                        <p>Únete a más de 100 millones de jugadores en todo el mundo</p>
+                        <button class="download-button" onclick="simulateDownload()">Descargar Ahora</button>
+                        <div class="download-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-description">
+                        <h3>Acerca del juego</h3>
+                        <p>Brawl Stars es un juego de batalla multijugador donde podrás enfrentarte en emocionantes combates 3v3 y todos contra todos. Colecciona y mejora docenas de brawlers, cada uno con su propio estilo de juego único.</p>
+                    </div>
+
+                    <div class="features-list">
+                        <h3>Características Principales</h3>
+                        <ul>
+                            <li>Batallas multijugador en tiempo real</li>
+                            <li>Más de 50 brawlers únicos</li>
+                            <li>Diversos modos de juego</li>
+                            <li>Sistema de progresión profundo</li>
+                            <li>Eventos especiales diarios</li>
+                            <li>Juego cross-platform</li>
+                            <li>Torneos competitivos</li>
+                            <li>Actualizaciones frecuentes</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirements">
+                        <h3>Requisitos del Sistema</h3>
+                        <div class="requirements-grid">
+                            <div class="requirement-item">
+                                <h4>Android</h4>
+                                <p>Android 4.3 o superior</p>
+                            </div>
+                            <div class="requirement-item">
+                                <h4>iOS</h4>
+                                <p>iOS 11.0 o superior</p>
+                            </div>
+                            <div class="requirement-item">
+                                <h4>Almacenamiento</h4>
+                                <p>500 MB de espacio libre</p>
+                            </div>
+                            <div class="requirement-item">
+                                <h4>Conexión</h4>
+                                <p>Internet estable</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Supercell Store. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function simulateDownload() {
+            const progressBar = document.querySelector('.progress-bar');
+            const downloadProgress = document.querySelector('.download-progress');
+            const downloadButton = document.querySelector('.download-button');
+            
+            downloadButton.disabled = true;
+            downloadButton.textContent = 'Descargando...';
+            downloadProgress.style.display = 'block';
+            
+            // Simular progreso
+            progressBar.style.width = '100%';
+            
+            setTimeout(() => {
+                downloadButton.textContent = '¡Descarga Completada!';
+                
+                // Simular apertura de la tienda
+                setTimeout(() => {
+                    if (confirm('¿Deseas abrir la tienda de aplicaciones para instalar Brawl Stars?')) {
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.supercell.brawlstars';
+                    }
+                }, 1000);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

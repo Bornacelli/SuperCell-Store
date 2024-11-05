@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supercell Store - Ofertas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(to right, #1a1a1a, #333);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color:#ab1010;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: rgb(171, 16, 16);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1a1a1a;
+        }
+
+        .offers-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/300');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .offers-banner h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .offers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #ff4757;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .offer-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .offer-info {
+            padding: 1.5rem;
+        }
+
+        .offer-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .original-price {
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .offer-price {
+            color: #ff4757;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .offer-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color:#ab1010;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .offer-button:hover {
+            background-color: #411313;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .timer-item {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .timer-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .offers-banner h1 {
+                font-size: 2rem;
+            }
+
+            .timer {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">Supercell Store</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index.html">Juegos</a></li>
+            <li><a href="ofertas.html">Ofertas</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="offers-banner">
+        <h1>Ofertas Especiales</h1>
+    </div>
+
+    <div class="timer-container">
+        <h2>Tiempo restante de las ofertas:</h2>
+        <div class="timer">
+            <div class="timer-item">
+                <div class="timer-number" id="days">02</div>
+                <div class="timer-label">Días</div>
+            </div>
+            <div class="timer-item">
+                <div class="timer-number" id="hours">18</div>
+                <div class="timer-label">Horas</div>
+            </div>
+            <div class="timer-item">
+                <div class="timer-number" id="minutes">45</div>
+                <div class="timer-label">Minutos</div>
+            </div>
+            <div class="timer-item">
+                <div class="timer-number" id="seconds">30</div>
+                <div class="timer-label">Segundos</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offers-container">
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="discount-badge">-50%</div>
+                <img src="/api/placeholder/400/200" alt="Brawl Pass">
+                <div class="offer-info">
+                    <h3 class="offer-title">Brawl Pass Premium</h3>
+                    <p class="offer-description">Desbloquea recompensas exclusivas, personajes y gemas adicionales.</p>
+                    <div class="price-container">
+                        <span class="original-price">$19.99</span>
+                        <span class="offer-price">$9.99</span>
+                    </div>
+                    <a href="#" class="offer-button">Comprar Ahora</a>
+                </div>
+            </div>
+
+            <div class="offer-card">
+                <div class="discount-badge">-35%</div>
+                <img src="/api/placeholder/400/200" alt="Clash Royale Pass">
+                <div class="offer-info">
+                    <h3 class="offer-title">Pase Royale</h3>
+                    <p class="offer-description">Obtén cofres especiales, cartas garantizadas y recompensas únicas.</p>
+                    <div class="price-container">
+                        <span class="original-price">$14.99</span>
+                        <span class="offer-price">$9.74</span>
+                    </div>
+                    <a href="#" class="offer-button">Comprar Ahora</a>
+                </div>
+            </div>
+
+            <div class="offer-card">
+                <div class="discount-badge">-40%</div>
+                <img src="/api/placeholder/400/200" alt="Clash of Clans Pack">
+                <div class="offer-info">
+                    <h3 class="offer-title">Pack de Gemas Premium</h3>
+                    <p class="offer-description">Pack especial con gemas, oro y recursos para tu aldea.</p>
+                    <div class="price-container">
+                        <span class="original-price">$24.99</span>
+                        <span class="offer-price">$14.99</span>
+                    </div>
+                    <a href="#" class="offer-button">Comprar Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Supercell Store. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Countdown Timer
+        function updateTimer() {
+            const now = new Date().getTime();
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 3); // 3 days from now
+            
+            const distance = endDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>

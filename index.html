@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supercell Store - Inicio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header & Nav (mantenidos del diseño anterior) */
+        header {
+            background: linear-gradient(to right, #1a1a1a, #333);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #ab1010;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #ab1010;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1a1a1a;
+        }
+
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .slider {
+            width: 300%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            width: 33.33%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 80%;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .slide-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 3;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background-color: #ab1010;
+        }
+
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.3);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 3;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .slider-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .slider-button.prev {
+            left: 20px;
+        }
+
+        .slider-button.next {
+            right: 20px;
+        }
+
+        /* Featured Games Section */
+        .featured-games {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .game-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #ab1010;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .game-link:hover {
+            background-color: #411313;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+
+            .slider-button {
+                width: 40px;
+                height: 40px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">Supercell Store</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#juegos">Juegos</a></li>
+            <li><a href="ofertas.html">Ofertas</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide">
+                <img src="/api/placeholder/1920/500" alt="Brawl Stars">
+                <div class="slide-content">
+                    <h2>Brawl Stars</h2>
+                    <p>¡Únete a la batalla más emocionante! Juega con amigos en múltiples modos de juego.</p>
+                    <a href="brawl-stars.html" class="game-link">Más Información</a>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="/api/placeholder/1920/500" alt="Clash Royale">
+                <div class="slide-content">
+                    <h2>Clash Royale</h2>
+                    <p>Duelos épicos en tiempo real. ¡Construye tu mazo y domina la arena!</p>
+                    <a href="clash-royale.html" class="game-link">Más Información</a>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="/api/placeholder/1920/500" alt="Clash of Clans">
+                <div class="slide-content">
+                    <h2>Clash of Clans</h2>
+                    <p>Construye tu aldea, crea un clan y compite en guerras épicas.</p>
+                    <a href="clash-of-clans.html" class="game-link">Más Información</a>
+                </div>
+            </div>
+        </div>
+        <button class="slider-button prev">❮</button>
+        <button class="slider-button next">❯</button>
+        <div class="slider-nav">
+            <span class="slider-dot active"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+        </div>
+    </div>
+
+    <section class="featured-games" id="juegos">
+        <h2 class="section-title">Juegos Destacados</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <img src="/api/placeholder/400/200" alt="Brawl Stars">
+                <div class="game-info">
+                    <h3 class="game-title">Brawl Stars</h3>
+                    <p class="game-description">Batallas multijugador 3v3 y batalla real con una colección única de personajes.</p>
+                    <a href="brawl-stars.html" class="game-link">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="game-card">
+                <img src="/api/placeholder/400/200" alt="Clash Royale">
+                <div class="game-info">
+                    <h3 class="game-title">Clash Royale</h3>
+                    <p class="game-description">Duelos estratégicos en tiempo real con cartas coleccionables y tropas épicas.</p>
+                    <a href="clash-royale.html" class="game-link">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="game-card">
+                <img src="/api/placeholder/400/200" alt="Clash of Clans">
+                <div class="game-info">
+                    <h3 class="game-title">Clash of Clans</h3>
+                    <p class="game-description">Construye tu aldea, forma un clan poderoso y domina en guerras épicas.</p>
+                    <a href="clash-of-clans.html" class="game-link">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Supercell Store. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slider = document.querySelector('.slider');
+        const dots = document.querySelectorAll('.slider-dot');
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentSlide * 33.33}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        // Event listeners
+        document.querySelector('.next').addEventListener('click', nextSlide);
+        document.querySelector('.prev').addEventListener('click', prevSlide);
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlider();
+            });
+        });
+
+        // Auto slide
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
